@@ -1,0 +1,18 @@
+public classDoctorController{
+    
+    @Autowired DoctorDAO doctordao;
+
+@GetMapping("/doctor/list") public List<Doctor> list()
+{ return this.doctordao.list();
+
+
+
+@PostMapping("/doctor/create")
+
+public Doctor create(@RequestBody Doctor doctor)
+{ Boolean b= this.doctordao.save(doctor);
+
+return doctor;
+
+I
+}

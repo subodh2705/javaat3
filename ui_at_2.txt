@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Registration Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+    <style>
+      body {
+        text-align: center;
+        display: block;
+      }
+      table {
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #success {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Registration Form</h2>
+    <table>
+      <tbody>
+        <tr>
+          <td><label>Name</label></td>
+          <td>
+            <input type="text" id="name" onchange="fieldValidate()" required />
+          </td>
+          <td><div id="errorName">Please enter the Name</div></td>
+        </tr>
+        <tr>
+          <td><label>User Name</label></td>
+          <td>
+            <input
+              type="text"
+              id="userName"
+              onchange="fieldValidate()"
+              required
+            />
+          </td>
+          <td><div id="errorUserName">Please enter the User name</div></td>
+        </tr>
+        <tr>
+          <td><label>Password</label></td>
+          <td>
+            <input
+              type="password"
+              id="password"
+              onchange="fieldValidate()"
+              required
+            />
+          </td>
+          <td><div id="errorPassword">Please enter the Password</div></td>
+        </tr>
+        <tr>
+          <td><label>Re-enter Password</label></td>
+          <td>
+            <input
+              type="password"
+              id="reEnter"
+              onchange="fieldValidate()"
+              required
+            />
+          </td>
+          <td><div id="errorReEnter">Please enter the Re-Enter Password</div></td>
+        </tr>
+        <tr>
+          <td><label>E-mail ID</label></td>
+          <td>
+            <input
+              type="email"
+              id="email"
+              onchange="fieldValidate()"
+              required
+            />
+          </td>
+          <td><div id="errorMail">Please enter the E-mail</div></td>
+        </tr>
+        <tr>
+          <td><label>Mobile Number</label></td>
+          <td>
+            <input type="tel" id="mobile" onchange="fieldValidate()" required />
+          </td>
+          <td><div id="errorMobile">Please enter the mobile number</div></td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+    <button id="register" onclick="details()">Register</button>
+    <br />
+    <div id="success"></div>
+    <div id="result"></div>
+    <script>
+      function fieldValidate() {
+        var name = document.getElementById("name").value;
+        var userName = document.getElementById("userName").value;
+        var password = document.getElementById("password").value;
+        var reEnter = document.getElementById("reEnter").value;
+        var email = document.getElementById("email").value;
+        var mobile = document.getElementById("mobile").value;
+
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+        if (name == "") {
+          document.getElementById("errorName").innerHTML =
+            "Please enter the Name";
+        } else {
+          document.getElementById("errorName").innerHTML = "";
+        }
+
+        if (userName == "") {
+          document.getElementById("errorUserName").innerHTML =
+            "Please enter the User name";
+        } else {
+          document.getElementById("errorUserName").innerHTML = "";
+        }
+
+        if (password == "") {
+          document.getElementById("errorPassword").innerHTML =
+            "Please enter the Password";
+        } else if (password.length < 8) {
+          document.getElementById("errorPassword").innerHTML =
+            "Passwords must contain atleast eight characters";
+        } else {
+          document.getElementById("errorPassword").innerHTML = "";
+        }
+
+        if (reEnter == "") {
+          document.getElementById("errorReEnter").innerHTML =
+            "Please enter the Re-Enter password";
+        } else if (password != reEnter) {
+          document.getElementById("errorReEnter").innerHTML =
+            "Password and Re-Type Password doesn't match";
+        } else {
+          document.getElementById("errorReEnter").innerHTML = "Please enter the Re-Enter Password";
+        }
+
+        if (email == "") {
+          document.getElementById("errorMail").innerHTML =
+            "Please enter the E-mail";
+        } else if (reg.test(email) == false) {
+          document.getElementById("errorMail").innerHTML = "Invalid E-mail";
+        } else {
+          document.getElementById("errorMail").innerHTML = "";
+        }
+
+        if (email == "") {
+          document.getElementById("errorMobile").innerHTML =
+            "Please enter the mobile number";
+        } else if (mobile.length != 10) {
+          document.getElementById("errorMobile").innerHTML =
+            "Mobile number should have 10 digits";
+        } else {
+          document.getElementById("errorMobile").innerHTML = "";
+        }
+      }
+
+      function details() {
+        var name = document.getElementById("name").value;
+        var userName = document.getElementById("userName").value;
+        var password = document.getElementById("password").value;
+        var reEnter = document.getElementById("reEnter").value;
+        var email = document.getElementById("email").value;
+        var mobile = document.getElementById("mobile").value;
+
+        document.getElementById("success").innerHTML =
+          "Registered Successfully!!";
+        document.getElementById("result").innerHTML =
+          "<h3>User Details</h3>" +
+          "Name : " +
+          name +
+          "<br>User Name : " +
+          userName +
+          "<br>Email id : " +
+          email +
+          "<br>Mobile Number : " +
+          mobile;
+      }
+    </script>
+  </body>
+</html>

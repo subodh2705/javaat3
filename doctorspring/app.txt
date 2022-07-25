@@ -1,0 +1,19 @@
+package com.springbone
+
+
+
+import org.springframmrk.boot.Springoplications import org.springframework.boot.autocontigure.spring
+
+import com.springboot.controller.doctorControllers 7
+
+@springBootApplication
+
+public class App {
+
+
+public static void main(String[] args) {
+
+
+
+//Fill your code here
+ SpringApplication.run(App.class, args);}}

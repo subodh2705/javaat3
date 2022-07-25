@@ -1,0 +1,102 @@
+import java.sql.*;
+import java.util.*;
+public class ItemTypeDAO {
+    public static List<ItemType> getAllItemTypes() throws Exception{
+        List<ItemType> itemTypeList =new ArrayList<ItemType>();
+        //your code goes here...
+        Connection con = DBConnection.getConnection();
+
+        String query = "select * from item_type";
+        Statement stmt = con.createStatement();
+
+        ResultSet rs = stmt.executeQuery(query);
+
+        while(rs.next()) {
+            itemTypeList.add(new ItemType(rs.getLong(1),rs.getString(2),rs.getDouble(3),rs.getDouble(4)));
+        }
+
+        con.close();
+        return itemTypeList;
+    }
+}
+
+_________________________________________________________________
+
+import java.sql.*;
+import java.util.*;
+public class ItemDAO {
+    public List<Item> findItemsByCategory(String category) throws Exception{
+        List<Item> itemList =new ArrayList<Item>();
+        //your code goes here...
+        List<ItemType> itemTypeList = ItemTypeDAO.getAllItemTypes();
+        ItemType itemType = itemTypeList.stream().filter(obj -> obj.getName().equals(category)).findFirst().get();
+        
+        Connection con = DBConnection.getConnection();
+
+        String query = "select * from item where type_id=?";
+        PreparedStatement pstmt = con.prepareStatement(query);
+        pstmt.setLong(1, itemType.getId());
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            itemList.add(new Item(rs.getLong(1), rs.getString(2), itemType, rs.getString(3)));
+            }
+
+        con.close();
+        return itemList;
+    }
+}
+_______________________________________________
+import java.sql.*;
+import java.util.*;
+import java.io.*;
+public class Main {
+	public static void main(String args[]) throws Exception{
+		//your code goes here...
+
+		BufferedReader buff = new BufferedReader(new InputStreamReader(System.in));
+
+		List<ItemType> itemTypeList= ItemTypeDAO.getAllItemTypes();
+		System.out.println("");
+		System.out.format("%-5s %-15s %-12s %s\n","ID","Name","Deposit","Cost per day");
+		
+		for(ItemType t:itemTypeList) {
+			System.out.format("%-5s %-15s %-12s %s\n",t.getId(),t.getName(),t.getDeposit(),t.getCostPerDay());
+			//System.out.println(t.getId()+" "+t.getName()+" "+t.getDeposit()+" "+t.getCostPerDay());
+			}
+
+		System.out.println("Enter the category:");	
+
+		String inp = buff.readLine();
+		System.out.println("");
+		if(inp.equals("Food") || inp.equals("Electronics") || inp.equals("Fashion") || inp.equals("Grooming") || inp.equals("Books"))
+		{
+			System.out.format("%-5s %-15s %-12s %s\n","ID","Name","Item Type","Vendor");
+			ItemDAO itemDAO = new ItemDAO();
+			List<Item> itemList = itemDAO.findItemsByCategory(inp);
+			for(Item t:itemList) {
+				System.out.println(t.getId()+" "+t.getName()+" "+t.getItemType().getName()+" "+t.getVendor());
+				}
+		}
+		else{
+			System.out.println("No such category is present");
+		}
+	}
+}
+______________________________________________________________
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+public class DBConnection {
+	public static Connection getConnection() throws ClassNotFoundException, SQLException {        
+        ResourceBundle rb = ResourceBundle.getBundle("oracle");
+        String url = rb.getString("db.url");
+        String username = rb.getString("db.username");
+        String password = rb.getString("db.password");
+        //fill your code here
+        Connection con = DriverManager.getConnection(url,username,password);
+        return con;
+    }
+}
+________________

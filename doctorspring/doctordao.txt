@@ -1,0 +1,30 @@
+package.com,springboot.daoj
+
+import java.util.")
+
+Appjov
+
+import org.springframework.boot.autoconfigure.SpringfootApplications Import org.springframework, stereotype.component
+
+import com.springboot.domain.Doctor)
+
+Component
+
+public class DoctorDAD (
+
+static ArrayList<Doctor> doctorList now ArrayListDoctor>();
+
+static (
+
+doctorList.add(new Doctor(1, "Harini", "Mess",4.2, "orthologist",750d))
+
+doctorList.add(new Doctor(2, "Nithin", "es", 2.0, "Gynecologist
+
+}
+
+
+public Boolean save(Doctor doctor) {
+
+doctorList.add(doctor); return true;
+
+public List<Doctor> list() { //Fill your code here

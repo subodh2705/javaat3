@@ -1,0 +1,43 @@
+public class Address {
+    //your code here
+    private String addressLine1,addressLine2,city,state;
+    private Integer pincode;
+    Address(){}
+    Address(String addressLine1, String addressLine2, String city,String state, Integer pincode){
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.city = city;
+        this.state = state;
+        this.pincode = pincode;
+    }
+    String getAddressLine1(){
+        return addressLine1;
+    }
+    void setAddressLine1(String a){
+        addressLine1 = a;
+    }
+    String getAddressLine2(){
+        return addressLine2;
+    }
+    void setAddressLine2(String a){
+        addressLine2 = a;
+    }
+    String getCity(){
+        return city;
+    }
+    void setCity(String a){
+        city = a;
+    }
+    String getState(){
+        return state;
+    }
+    void setState(String a){
+        state = a;
+    }
+    Integer getPincode(){
+        return pincode;
+    }
+    void setPincode(Integer a){
+        pincode = a;
+    }
+}

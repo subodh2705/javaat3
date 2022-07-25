@@ -1,0 +1,28 @@
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+
+public class AirportDAO {
+    public void insertAirport(Airport airportIns) throws ClassNotFoundException, SQLException{
+        Connection con = DBConnection.getConnection();
+        Statement st = con.createStatement();
+        String sql_query = "insert into Airport( iata_airport_code,name,city,country_name) values('"+airportIns.getIataAirportCode()+"','"+airportIns.getName()+"','"+airportIns.getCity()+"','"+airportIns.getCountry()+"')";
+        int updateCount=st.executeUpdate(sql_query);
+        //fill your code
+    }
+    public ArrayList<Airport> listAirport() throws ClassNotFoundException, SQLException{
+		ArrayList<Airport> airportList = new ArrayList<>();	
+        //fill your code
+	 	Connection con = DBConnection.getConnection();
+        Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("select iata_airport_code,name,city,country_name from airport");
+		while(rs.next()){
+			airportList.add(new Airport(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)));
+		}
+		con.close();
+		return airportList;
+	}
+}
